@@ -60,7 +60,8 @@ https://<ngrok-domain>/app/board/uXjVPN7re9A=/?foo=true
 ---
 
 
-🔴 Fails
+🔴 Fails - redirecting to login 
+
 ```
 https://<ngrok-domain>/app/board/uXjVPN7re9A=/?login=true
 ```
@@ -70,6 +71,8 @@ https://<ngrok-domain>/app/board/uXjVPN7re9A=/?login=true
 ```
 
 ![403 result](403.png)
+
+> Note that just loading login by itself works. `https//<ngrok-domain>/login?from=app/board/uXjVPN7re9A=`
 
 ---
 
@@ -83,3 +86,5 @@ https://<ngrok-domain>/app/board/uXjVPN7re9A=/?signup=true
 ```
 
 ![403 result](403.png)
+
+> Note that just loading signup by itself works. `https//<ngrok-domain>/signup?from=app/board/uXjVPN7re9A=`
