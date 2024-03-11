@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Res, Logger, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Res,
+  Logger,
+  Query,
+  Headers,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { getLinkHeader } from './utils';
 
@@ -14,12 +22,13 @@ export class BoardController {
     @Param() params: any,
     @Query() query: any,
     @Res() res: Response,
+    @Headers() headers,
   ) {
     const url = encodeURIComponent(
       `https://miro.com/app/board/${params.boardId}`,
     );
 
-    const host = '53f2-208-127-124-158.ngrok-free.app';
+    const host = headers.host;
 
     /**
      * Tests redirection to a login page.
