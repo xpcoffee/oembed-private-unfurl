@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>A fake Miro board</title>
+
+    <!-- oEmbed link headers - points to the Miro oEmbed API -->
+    <link rel="alternate" type="application/json+oembed"
+      href="https://miro.com/api/v1/oembed?url={{ boardUrl }}&format=json"
+      title="Embedded Miro board (via oembed link tag, JSON)" />
+    <link rel="alternate" type="text/xml+oembed"
+      href="https://miro.com/api/v1/oembed?url={{ boardUrl }}&format=xml"
+      title="Embedded Miro board  (via oembed link tag, XML)" />
+  </head>
+
+  <body>
+    <h1>Fake board</h1>
+    We don't care about this content, we expect the oEmbed consumer to use the oEmbed link headers to discover how to embed the Miro board.
+  </body>
+</html>
