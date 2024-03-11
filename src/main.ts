@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
-import { OEmbedModule } from './oembed.module';
+import { ExampleModule } from './example.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(OEmbedModule);
+  const app = await NestFactory.create<NestExpressApplication>(ExampleModule);
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
