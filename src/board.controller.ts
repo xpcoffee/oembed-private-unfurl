@@ -31,43 +31,49 @@ export class BoardController {
     const host = headers.host;
 
     /**
-     * Tests redirection to a login page.
+     * Simulate short-circuiting to a dummy page based on the user agent.
      */
-    if (query.login !== undefined && query.login === 'true') {
-      Logger.log('redirect to login');
+    const shouldServeDummyPage =
+      query.dummy === 'true' &&
+      headers['user-agent']?.toLowerCase().includes('iframely');
 
-      res
-        .set(getLinkHeader(url))
-        .redirect(`https://${host}/login/?from=app/board/${params.boardId}`);
+    if (shouldServeDummyPage) {
+      Logger.log('render dummy page');
+      res.set(getLinkHeader(url));
+      res.render('dummy', { boardUrl: url });
       return;
     }
 
     /**
-     * Tests redirection to a signup page.
+     * Simulate a redirect.
      */
-    if (query.signup !== undefined && query.signup === 'true') {
-      Logger.log('redirect to signup');
+    const redirect = query.redirect;
+    switch (redirect) {
+      // redirect to an auth path
+      case 'login':
+      case 'signup':
+      // tests a random pattern for a redirect path
+      case 'foo':
+        Logger.log(`redirect to ${redirect}`);
 
-      res
-        .set(getLinkHeader(url))
-        .redirect(`https://${host}/signup/?from=app/board/${params.boardId}`);
-      return;
+        res
+          .set(getLinkHeader(url))
+          .redirect(
+            `https://${host}/${redirect}/?from=app/board/${params.boardId}`,
+          );
+        return;
+
+      default:
+        if (redirect !== undefined) {
+          Logger.log(`Unknown redirect. Will not redirect: ${redirect}`);
+        }
     }
 
     /**
-     * Tests redirection to a random Miro page.
+     * Actual "board" render.
      */
-    if (query.foo !== undefined && query.foo === 'true') {
-      Logger.log('redirect to foo');
-
-      res
-        .set(getLinkHeader(url))
-        .redirect(`https://${host}/foo/?from=app/board/${params.boardId}`);
-      return;
-    }
-
     Logger.log('render board');
     res.set(getLinkHeader(url));
-    res.render('board', { boardUrl: url, boardId: params.boardId });
+    res.render('board', { boardUrl: url });
   }
 }

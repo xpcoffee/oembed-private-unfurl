@@ -1,9 +1,9 @@
 import { Controller, Get, Res, Logger, Query, Render } from '@nestjs/common';
 import { Response } from 'express';
-import { getLinkHeader } from './utils';
+import { getLinkHeader, getMiroUrlFromPath } from './utils';
 
 /**
- * Simulates loading a Miro board
+ * Simulates loading the login screen. To validate if iFramely short-circuits the redirect.
  */
 @Controller('login')
 export class LoginController {
@@ -17,7 +17,7 @@ export class LoginController {
   getBoardHtml(@Query() query: any, @Res({ passthrough: true }) res: Response) {
     Logger.log('render login');
 
-    const boardUrl = query.from ? `https://miro.com/${query.from}/` : undefined;
+    const boardUrl = getMiroUrlFromPath(query.from);
     boardUrl && res.set(getLinkHeader(boardUrl));
     return boardUrl ? { boardUrl } : undefined;
   }

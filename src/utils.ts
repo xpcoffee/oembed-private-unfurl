@@ -6,3 +6,8 @@ export function getLinkHeader(url: string) {
     ].join(','),
   };
 }
+
+export function getMiroUrlFromPath(path?: string) {
+  if (path === undefined) return undefined;
+  return `https://miro.com/${path}`;
+}
